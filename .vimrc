@@ -200,6 +200,7 @@ if has('gui_running')
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
     set guicursor+=i-ci:ver20-iCursor
+    highlight iCursor guifg=white guibg=steelblue
 
     if has("gui_macvim")
         " Full screen means FULL screen
@@ -233,4 +234,11 @@ if has('gui_running')
 else
     " Console Vim
 endif
+syntax on
+set background=dark
+colorscheme molokai
+
+" Highlight VCS conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
 call pathogen#infect()
