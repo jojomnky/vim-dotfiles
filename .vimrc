@@ -199,7 +199,7 @@ if has('gui_running')
     " Different cursors for different modes.
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:ver20-iCursor
+    set guicursor+=i-ci:ver25-Cursor/lCursor
     highlight iCursor guifg=white guibg=steelblue
 
     if has("gui_macvim")
