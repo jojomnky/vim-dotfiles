@@ -1,24 +1,16 @@
+set nocompatible
 set autoindent
 set cindent
 set smartindent
-set expandtab
+set ignorecase
 set smartcase
 set tabstop=4
 set shiftwidth=4
 set nu
-nnoremap <silent> <leader>vh :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
-nnoremap <silent> <leader>v1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
-nnoremap <silent> <leader>v2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
-nnoremap <silent> <leader>v3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
-:set tabstop=2        " Force tabs to be displayed/expanded to 2 spaces (instead of default 8).
-:set softtabstop=2    " Make Vim treat <Tab> key as 2 spaces, but respect hard Tabs.
-                      " I don't think this one will do what you want.
+:set softtabstop=4    " Make Vim treat <Tab> key as 2 spaces, but respect hard Tabs.
 :set expandtab        " Turn Tab keypresses into spaces.  Sounds like this is happening to you.
-                      " You can still insert real Tabs as [Ctrl]-V [Tab].
-:set shiftwidth=2     " When auto-indenting, indent by this much.
-                      " (Use spaces/tabs per "expandtab".)
 :retab                " Change all the existing tab characters to match the current tab settings
-let g:ProjTags=['~/git/SchoolSpringPhp/','~/tags']
+let g:ProjTags=['~/ss-dev/symfony2/','~/tags']
 let g:miniBufExplMapWindowNavVim = 1 
 let g:miniBufExplMapWindowNavArrows = 1 
 let g:miniBufExplMapCTabSwitchBufs = 1 
@@ -77,25 +69,12 @@ augroup ft_html
     au BufNewFile,BufRead *.html setlocal filetype=htmljinja
     au BufNewFile,BufRead *.twig setlocal filetype=htmljinja
 augroup END
+au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/yaml.vim
 map <silent> <F8> :Tlist<CR>
 nnoremap K <nop>
-inoremap <C-_> <Space><BS><Esc>:call InsertCloseTag()<cr>a
 inoremap jk <esc>
 set completeopt=longest,menuone,preview
 au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
-function! InsertTabWrapper(direction)
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  elseif "backward" == a:direction
-    return "\<c-p>"
-  else
-    return "\<c-n>"
-  endif
-endfunction
-inoremap <Tab> <C-R>=InsertTabWrapper("backward")<CR>
-inoremap <S-Tab> <C-R>=InsertTabWrapper("forward")<CR>
-au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/yaml.vim
 set background=dark
 colorscheme solarized
 set stl=%f\ %m\ %r\ Line:\ %l/%L[%p%%]\ Col:\ %c\ Buf:\ #%n\ [%b][0x%B]
@@ -110,11 +89,7 @@ set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 set incsearch
  " disable tabs
  let mapleader = ","
- set expandtab
- set shiftwidth=4
- set softtabstop=4
 " Forget being compatible with good ol' vi
-set nocompatible
 
 " Get that filetype stuff happening
 filetype on
@@ -234,11 +209,16 @@ if has('gui_running')
 else
     " Console Vim
 endif
-syntax on
-set background=dark
-colorscheme molokai
-
-" Highlight VCS conflict markers
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+nnoremap j gj
+nnoremap k gk
+vnoremap < <gv
+vnoremap > >gv
+"syntax on
+"set background=dark
+"colorscheme molokai
 
 call pathogen#infect()
